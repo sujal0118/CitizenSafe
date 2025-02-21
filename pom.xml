@@ -41,6 +41,14 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
+
+        <!-- ✅ MySQL JDBC Driver -->
+
+        <dependency>
+        	<groupId>com.mysql</groupId>
+        	<artifactId>mysql-connector-j</artifactId>
+        	<version>9.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -50,10 +58,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-                 <configuration>
-                <release>11</release>
-                <encoding>UTF-8</encoding>
-            </configuration>
+                <configuration>
+                    <release>11</release>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
 
             <!-- Maven WAR Plugin -->
@@ -67,6 +75,4 @@
             </plugin>
         </plugins>
     </build>
-    
-
-   </project>
+</project>
