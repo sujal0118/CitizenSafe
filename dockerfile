@@ -5,7 +5,7 @@ FROM tomcat:10.1.24-jdk17
 ENV CATALINA_HOME /usr/local/tomcat
 
 # Copy WAR file to Tomcat webapps directory
-COPY target/FraudDetectionSystem.war $CATALINA_HOME/webapps/FraudDetectionSystem.war
+COPY target/FraudDetectionSystem.war $CATALINA_HOME/webapps/ROOT.war
 
 # Expose port 8080 for the application
 EXPOSE 8080
