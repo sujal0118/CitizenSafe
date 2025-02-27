@@ -99,15 +99,17 @@
     <div class="forgot-container">
         <div class="form-header">
             <h1>Forgot Password</h1>
-            <p>Enter your email address to reset your password</p>
+            <p>Enter your email address to receive an OTP for password reset.</p>
         </div>
-        <form action="process-forgot-password" method="POST">
+
+        <form action="SendOtpServlet" method="POST">
             <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="email">Email Address:</label>
                 <input type="email" id="email" name="email" required>
             </div>
-            <button type="submit" class="submit-button">Submit</button>
+            <button type="submit" class="submit-button">Send OTP</button>
         </form>
+        
         <div class="back-link">
             <a href="index.jsp">Back to Login</a>
         </div>

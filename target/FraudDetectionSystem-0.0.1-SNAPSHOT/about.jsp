@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +90,7 @@
 
     <div class="team-section">
         <div class="team-member">
-            <img src="/FraudDetectionSystem/src/main/webapp/pic.jpg" alt="Sujal Jawalkar">
+            <img src="/FraudDetectionSystem/images/pic.jpg" alt="Sujal Jawalkar">
             <h3>Sujal Jawalkar</h3>
             <p>Developer</p>
         </div>
