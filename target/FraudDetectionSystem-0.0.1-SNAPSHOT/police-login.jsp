@@ -96,6 +96,13 @@
         <div class="form-header">
             <h1>Police Login</h1>
             <p>Access your police portal</p>
+            
+            <%
+    String loginMessage = request.getParameter("message");
+    if (loginMessage != null && !loginMessage.isEmpty()) { 
+%>
+    <p style="color: red; text-align: center;"><%= loginMessage %></p>
+<% } %>
         </div>
         
         <form action="police-login" method="POST">

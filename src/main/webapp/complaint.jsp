@@ -3,191 +3,366 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>File a Complaint</title>
+    <title>File a Complaint - CitizenSafe</title>
     <style>
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            gap: 30px;
-        }
-        .main-content {
-            flex: 1;
-        }
-        .side-content {
-            width: 300px;
-            flex-shrink: 0;
-        }
-        .header {
-            background-color: #2d3748;
-            color: white;
-            padding: 15px 20px;
-            margin: -20px -20px 20px -20px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 5px;
-            color: #4a5568;
-        }
-        .form-control {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            background-color: #f8f9fa;
-            box-sizing: border-box;
-        }
-        .voice-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-record {
-            background-color: #1dc9b7;
-            color: white;
-        }
-        .btn-speech {
-            background-color: #2d3748;
-            color: white;
-        }
-        .btn-dictate {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .btn-dictate.active {
-            background-color: #dc3545;
-        }
-        .speech-status {
-            margin-top: 5px;
-            font-size: 0.9em;
-            color: #666;
-        }
-        .btn-back {
-            background-color: #6c757d;
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .guidelines {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 4px;
-        }
-        .voice-features {
-            background-color: #e6f7f5;
-            padding: 20px;
-            border-radius: 4px;
-            margin-top: 20px;
-        }
-        .guidelines ul, .voice-features ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .guidelines li, .voice-features li {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 15px;
-        }
-        .guidelines li:before, .voice-features li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-        }
-        h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #2d3748;
-        }
-        h3 {
-            color: #2d3748;
-            margin-bottom: 15px;
-        }
-        .evidence-preview {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            display: none;
-        }
-        .evidence-preview.active {
-            display: block;
-        }
-        .audio-controls {
-            width: 100%;
-            margin: 10px 0;
-        }
-        .file-preview {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            margin-top: 5px;
-        }
-        .file-preview i {
-            color: #6c757d;
-        }
-        .error-message {
-            color: #dc3545;
-            font-size: 0.9em;
-            margin-top: 5px;
-            display: none;
-        }
-        .error-message.active {
-            display: block;
-        }
-        .file-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            margin-top: 5px;
-        }
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .file-size {
-            color: #6c757d;
-            font-size: 0.9em;
-        }
-        .remove-file {
-            background: none;
-            border: none;
-            color: #dc3545;
-            cursor: pointer;
-            padding: 4px 8px;
-            font-size: 1.2em;
-        }
-        .remove-file:hover {
-            background-color: #dc35451a;
-            border-radius: 4px;
-        }
+ body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Updated Navbar/Header with centered logo */
+.navbar {
+    background-color: #0b3d6f;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.logo img {
+    height: 30px;
+    margin-right: 8px;
+}
+
+/* Updated page header to better center logo */
+.page-header {
+    background-color: #0b3d6f;
+    color: white;
+    padding: 20px 10px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.page-header .logo {
+    margin: 0 auto 15px auto;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Content Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    gap: 30px;
+}
+
+.main-content {
+    flex: 1;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+.side-content {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Voice Controls */
+.voice-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: #0b3d6f;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0a2f55;
+}
+
+.btn-record {
+    background-color: #1dc9b7;
+    color: white;
+}
+
+.btn-record:hover {
+    background-color: #19b0a0;
+}
+
+.btn-speech {
+    background-color: #0b3d6f;
+    color: white;
+}
+
+.btn-dictate {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-dictate.active {
+    background-color: #dc3545;
+}
+
+.speech-status {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.btn-back {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+/* Refined Card and Sidebar styling */
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #0b3d6f;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.card-header h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-body li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.card-body li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0b3d6f;
+    font-weight: bold;
+}
+
+/* Headings and Sections */
+.section-title {
+    color: #0b3d6f;
+    margin-bottom: 20px;
+    font-size: 20px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #0b3d6f;
+}
+
+h3 {
+    color: #0b3d6f;
+    margin-bottom: 15px;
+}
+
+/* Evidence Uploads and Previews */
+.evidence-preview {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    display: none;
+}
+
+.evidence-preview.active {
+    display: block;
+}
+
+.audio-controls {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-size {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.remove-file {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 1.2em;
+}
+
+.remove-file:hover {
+    background-color: #dc35451a;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: none;
+}
+
+.error-message.active {
+    display: block;
+}
+
+/* Matching styles for guidelines and voice-features cards */
+.guidelines, .voice-features {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.guidelines h2, .voice-features h2 {
+    background-color: #0b3d6f;
+    color: white;
+    padding: 15px 20px;
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.guidelines ul, .voice-features ul {
+    padding: 20px;
+    list-style: none;
+    margin: 0;
+}
+
+.guidelines li, .voice-features li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.guidelines li:before, .voice-features li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0b3d6f;
+    font-weight: bold;
+}
+
+/* Footer */
+.footer {
+    background-color: #0b3d6f;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    font-size: 14px;
+}
     </style>
 </head>
 <body>
-    <div class="header">
+    <!-- Simplified Navigation Bar -->
+   
+
+    <!-- Page Header -->
+    <div class="page-header">
+    <div class="logo">
+            <span>🛡️</span>
+            CitizenSafe
+        </div>
         <h1>File a Complaint</h1>
+        <p>Your trusted platform for fraud prevention and reporting</p>
     </div>
     
     <div class="container">
@@ -321,8 +496,23 @@
                     <li>Click <span>🎙️</span> to record</li>
                     <li>Speak clearly</li>
                     <li>Review before submit</li>
-                    <li>Edit text if needed</li>
+                    <li> Currently Only English audio support available </li>
+                    <li>if using Dictation Edit text if needed</li>
                 </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>What Happens Next?</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Your complaint will be reviewed by our verification team</li>
+                        <li>You'll receive a confirmation email with a tracking number</li>
+                        <li>The complaint will be forwarded to relevant authorities</li>
+                        <li>You may be contacted for additional information</li>
+                        <li>Check your dashboard for status updates</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -658,5 +848,6 @@
         return confirm("You cannot change the details after submitting. Do you want to proceed?");
     }
     </script>
+
 </body>
 </html>

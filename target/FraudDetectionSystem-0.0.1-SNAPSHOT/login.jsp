@@ -203,6 +203,7 @@
     </style>
 </head>
 <body>
+
     <div class="auth-container">
         <div class="auth-form">
             <div class="tabs">
@@ -216,6 +217,13 @@
                 <%  String errorMessage = request.getParameter("errormessage");
                         if (errorMessage != null && !errorMessage.isEmpty()) {  %>
                            <p style="color: red;"><%= errorMessage %></p><% } %>
+                           
+                           <%
+    String loginMessage = request.getParameter("message");
+    if (loginMessage != null && !loginMessage.isEmpty()) { 
+%>
+    <p style="color: red; text-align: center;"><%= loginMessage %></p>
+<% } %>
                  
                     <h1>User Login</h1>
                     <p>Welcome back! Please login to your account</p>

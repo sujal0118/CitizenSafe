@@ -5,12 +5,14 @@
 
 <%
     // Check if police officer is logged in
-   String officerId = (String) session.getAttribute("officer_id");
 
-    if (officerId== null) {
+    Integer officerId = (Integer) session.getAttribute("officer_id"); // Correct way
+    if (officerId == null) {
         response.sendRedirect("police-login.jsp");
         return;
     }
+
+
 
     // Retrieve case ID from request
     int caseId = Integer.parseInt(request.getParameter("caseId"));
@@ -20,24 +22,83 @@
 <html>
 <head>
     <title>View Case</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; }
-        header, footer { background-color: #0047AB; color: white; padding: 15px; text-align: center; }
-        .container { width: 80%; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); }
-        h2 { color: #007bff; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        th { background: #007bff; color: white; }
-        .btn { padding: 10px 15px; border: none; cursor: pointer; border-radius: 5px; color: white; }
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        h1, h2, h3 {
+            color: #0047AB;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #0047AB;
+            color: white;
+        }
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            display: inline-block;
+            margin-top: 10px;
+        }
         .btn-accept { background-color: green; }
         .btn-reject { background-color: red; }
-        textarea { width: 100%; height: 80px; margin-top: 10px; }
-        .view-link { color: blue; text-decoration: underline; }
+        .btn-back { background-color: #007bff; text-decoration: none; padding: 10px; display: inline-block; }
+        .btn-primary{background-color: green;}
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+        }
+        .view-link {
+            color: blue;
+            text-decoration: underline;
+        }
+        
+          .btn-primary {
+            background-color: #007bff;
+            color: white;
+            display: block;
+            width: 200px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 20px auto 0;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-
+<a href="police.jsp" class="btn-primary">Back to Police Dashboard</a>
 <header>
     <h1>Case Details</h1>
 </header>
@@ -98,21 +159,34 @@ while (rsEvidence.next()) {
 
     </table>
 
-   <h3>Provide Feedback</h3>
-    <form action="UpdateCase" method="post">
-        <input type="hidden" name="caseId" value="<%= caseId %>">
-        <textarea name="feedback" placeholder="Enter your feedback..." required></textarea>
-        <br>
+<h3>Provide Feedback</h3>
+<form action="UpdateCase" method="post">
+    <input type="hidden" name="caseId" value="<%= caseId %>">
+    <textarea name="feedback" placeholder="Enter your feedback..." required></textarea>
+    <br>
 
-        <% if ("Accepted".equalsIgnoreCase(rs.getString("status"))) { %>
-            <!-- Show "Mark as Completed" button if the case is Accepted -->
-            <button type="submit" name="status" value="Completed" class="btn btn-accept">Mark as Completed</button>
-        <% } else { %>
-            <!-- Show Accept/Reject buttons if the case is NOT Accepted -->
-            <button type="submit" name="status" value="Accepted" class="btn btn-accept">Accept Case</button>
-            <button type="submit" name="status" value="Rejected" class="btn btn-reject">Reject Case</button>
-        <% } %>
-    </form>
+    <% 
+        String caseStatus = rs.getString("status");
+    if ("Accepted".equalsIgnoreCase(caseStatus) || "Completed".equalsIgnoreCase(caseStatus)) { 
+
+    %>
+        <!-- Show Case Report & Mark as Completed button if the case is Accepted -->
+     <button class="btn btn-primary" onclick="window.open('<%= request.getContextPath() %>/downloadCaseReport?caseId=<%= caseId %>', '_blank')"> View Case Report</button>
+        <button type="submit" name="status" value="Completed" class="btn btn-accept">Mark as Completed</button>
+    <% } else if ("Rejected".equalsIgnoreCase(caseStatus)) { %>
+        <!-- Show nothing if the case is Rejected -->
+        <p style="color: red;"><b>This case has been rejected.</b></p>
+    <% } else if ("Completed".equalsIgnoreCase(caseStatus)) { %>
+        <!-- Show only Case Report if the case is Completed -->
+        <a href="<%= request.getContextPath() %>/downloadCaseReport?caseId=<%= caseId %>" class="btn btn-primary" target="_blank">View Case Report</a>
+        <p style="color: green;"><b>This case has been completed.</b></p>
+    <% } else { %>
+        <!-- Show Accept & Reject buttons if the case is still pending -->
+        <button type="submit" name="status" value="Accepted" class="btn btn-accept">Accept Case</button>
+        <button type="submit" name="status" value="Rejected" class="btn btn-reject">Reject Case</button>
+    <% } %>
+</form>
+
 
     <%
             } else {

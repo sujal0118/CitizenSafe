@@ -12,7 +12,7 @@
             padding: 0;
         }
         .header {
-            background-color: #2c3e50;
+            background-color:  #0b3d6f;
             color: white;
             padding: 20px;
             font-size: 24px;

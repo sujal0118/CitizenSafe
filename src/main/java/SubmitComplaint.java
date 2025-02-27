@@ -37,7 +37,9 @@ public class SubmitComplaint extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user_id") == null) {
-            response.sendRedirect("login.jsp?error=Please login first");
+        	
+            response.sendRedirect("login.jsp?message=Please login to submit your complaint.");
+        
             return;
         }
         int userId = (int) session.getAttribute("user_id");
