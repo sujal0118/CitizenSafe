@@ -94,7 +94,7 @@
     </div>
 </div>
   
-</div>
+
 <script>
     document.querySelectorAll("iframe").forEach(frame => {
         frame.setAttribute("allowfullscreen", "");

@@ -74,7 +74,7 @@
         <h1>About Us</h1>
     </div>
 
-    <a href="index.jsp" class="back-button">Back to Main Page</a>
+    <a href="<%= request.getContextPath() %>/index.jsp" class="back-button">Back to Main Page</a>
 
     <div class="mission">
         <h2>Our Mission</h2>
@@ -90,12 +90,19 @@
 
     <div class="team-section">
         <div class="team-member">
-            <img src="/FraudDetectionSystem/images/pic.jpg" alt="Sujal Jawalkar">
+         <img src="images/pic.jpg" alt="Missing Image">
+
+
+
+
+
+
+
             <h3>Sujal Jawalkar</h3>
             <p>Developer</p>
         </div>
         <div class="team-member">
-            <img src="#" alt="Khushdill Gupta">
+            <img src="images/pic2.jpg" alt="Khushdill Gupta">
             <h3>Khushdill Gupta</h3>
             <p>Developer</p>
         </div>

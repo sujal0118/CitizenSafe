@@ -216,7 +216,7 @@
                 <div class="form-header">
                 <%  String errorMessage = request.getParameter("errormessage");
                         if (errorMessage != null && !errorMessage.isEmpty()) {  %>
-                           <p style="color: red;"><%= errorMessage %></p><% } %>
+                           <p style="color: black;"><%= errorMessage %></p><% } %>
                            
                            <%
     String loginMessage = request.getParameter("message");
@@ -244,7 +244,7 @@
                     <div style="text-align: right; margin-top: -10px; margin-bottom: 15px;">
                         <a href="forgot-password.jsp" style="color: #0d9488; text-decoration: none;">Forgot Password?</a>
                     </div>
-                    <button type="submit" class="submit-button">Login</button>
+                    <button type="submit" class="submit-button"id= "loginBtn">Login</button>
                 </form>
                 <div class="login-options">
                     <a href="police-login.jsp">Police Login</a>
@@ -281,7 +281,7 @@
                         <input type="checkbox" id="showPassword" onclick="toggleRegisterPasswordVisibility()">
                         <label for="showPassword">Show Password</label>
                     </div>
-                    <button type="submit" class="submit-button">Register</button>
+                    <button type="submit" class="submit-button" id="registerBtn">Register</button>
                 </form>
             </div>
         </div>

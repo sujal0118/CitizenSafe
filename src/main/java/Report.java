@@ -50,9 +50,10 @@ public class Report extends HttpServlet {
 
 
         String no_orurl = request.getParameter("no_orurl");
-        String date = request.getParameter("date");
+        
+        String date = request.getParameter("incidentDate");
         String description = request.getParameter("description");
-       
+   
 
         PreparedStatement stmt = null;
 
@@ -69,7 +70,7 @@ public class Report extends HttpServlet {
             if (rowsInserted > 0) {
                 request.setAttribute("message", "Report submitted successfully.");
                 request.setAttribute("no_orurl", no_orurl);
-                request.setAttribute("date", date);
+                request.setAttribute("incidentDate", date);
                 request.setAttribute("description", description);
             } else {
                 request.setAttribute("message", "Failed to submit report. Try again.");

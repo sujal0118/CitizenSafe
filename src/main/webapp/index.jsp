@@ -103,7 +103,7 @@ nav a {
 
 /* Hero Section */
 .hero {
-    background-color: #5a5a5a;
+    background: url('images/bg-img.png') no-repeat center center/cover;
     color: white;
     text-align: center;
     padding: 50px 20px;
@@ -294,6 +294,55 @@ footer {
     margin-top: auto;
 }
 
+ /* Chatbot Icon */
+    #chatbot-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #0d4b87;
+        color: white;
+        font-size: 24px;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    /* Chatbot Popup */
+    #chatbot-container {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 350px;
+        height: 400px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 9999;
+    }
+    .chat-header {
+        background: #0d4b87;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .chat-header button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    #chatbot-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+    } border: none;
+    }
 /* Burger Menu (Mobile) */
 .burger-menu {
     display: none;
@@ -305,6 +354,7 @@ footer {
 .burger-menu div {
     width: 30px;
     height: 3px;
+    display: none;
     background-color: white;
     transition: 0.3s;
 }
@@ -362,6 +412,10 @@ footer {
     .burger-menu {
         display: flex;
     }
+    .burger-menu div{
+    background-color: black;
+    display: flex;
+    }
 
     nav {
         display: none;
@@ -389,7 +443,7 @@ footer {
         margin: 10px auto;
         text-align: center;
     }
-    .guidance-section h2 {
+   .guidance-section h2 {
     font-size: 1.8rem;
   }
   
@@ -404,6 +458,7 @@ footer {
 .name {
     font-size: 2rem;
 }
+
     </style>
 </head>
 <body>
@@ -514,9 +569,7 @@ footer {
             %>
           
             <div class="news-card">
-                <div class="news-image">
-                    <!-- Empty div for news image placeholder -->
-                </div>
+               
                 <div class="news-content">
                     <div class="news-date">February 20, 2025</div>
                     <h3 class="news-title">CitizenSafe Partners with National Cybercrime Unit</h3>
@@ -524,9 +577,7 @@ footer {
                 </div>
             </div>
             <div class="news-card">
-                <div class="news-image">
-                    <!-- Empty div for news image placeholder -->
-                </div>
+              
                 <div class="news-content">
                     <div class="news-date">February 15, 2025</div>
                     <h3 class="news-title">5 Warning Signs of Investment Fraud</h3>
@@ -619,7 +670,19 @@ footer {
         <div id="map" style="width: 100%; height: 100%;"></div>
     </div>
     </section>
+    
+<div id="chatbot-icon" onclick="openChatbot()">
+    💬
+</div>
 
+<!-- Chatbot Popup (Initially Hidden) -->
+<div id="chatbot-container">
+    <div class="chat-header">
+        <span>Chatbot</span>
+        <button onclick="closeChatbot()">✖</button>
+    </div>
+    <iframe id="chatbot-frame" src="chatbot.jsp"></iframe> <!-- Loads chatbot.jsp -->
+</div>
     <footer>
         <p>&copy; 2025 Fraud Detection System. All rights reserved.</p>
     </footer>
@@ -687,6 +750,17 @@ footer {
                 title: place.name,
             });
         }
+        
+        
+        function openChatbot() {
+            document.getElementById("chatbot-container").style.display = "flex";
+        }
+
+        function closeChatbot() {
+            document.getElementById("chatbot-container").style.display = "none";
+        }
+
+
     </script>
 
 

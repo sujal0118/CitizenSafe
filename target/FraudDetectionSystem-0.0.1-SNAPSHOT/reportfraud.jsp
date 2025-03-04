@@ -221,7 +221,7 @@
     
     <% 
     if (session.getAttribute("user") == null) { 
-        response.sendRedirect("login.jsp?error=Please login first to submit a report");
+        response.sendRedirect("login.jsp?message=Please login first to submit a report");
         return; 
     } 
     %>
@@ -231,19 +231,19 @@
             <a href="index.jsp" class="back-btn">← Back to Main Page</a>
             <h2 class="section-title">Report Details</h2>
             
-            <form action="Report" method="POST" enctype="multipart/form-data">
+            <form action="Report" method="POST">
                 <div class="form-group">
                     <label for="no_orurl" class="form-label">Phone Number/Website URL*</label>
                     <input type="text" name="no_orurl" id="no_orurl" 
                            class="form-control" 
                            placeholder="Enter phone number or website URL" required>
+                           
                 </div>
 
-                <div class="form-group">
-                    <label for="date" class="form-label">Date of Incident*</label>
-                    <input type="date" name="date" id="date" 
-                           class="form-control" required>
-                </div>
+              <div class="form-group">
+    <label class="form-label">Date of Incident*</label>
+    <input type="date" name="incidentDate" class="form-control" id="incidentDate" required>
+</div>
 
                 <div class="form-group">
                     <label for="description" class="form-label">Description of Fraud*</label>
@@ -280,6 +280,8 @@
         function confirmSubmission() {
             return confirm("You cannot change the details after submitting. Do you want to proceed?");
         }
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("incidentDate").setAttribute("max", today);
     </script>
 </body>
 </html>

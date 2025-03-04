@@ -95,10 +95,42 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
+     .alert {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
     </style>
 </head>
 <body>
 <a href="police.jsp" class="btn-primary">Back to Police Dashboard</a>
+
+
+<% 
+    String message = (String) session.getAttribute("message");
+    String messageType = (String) session.getAttribute("messageType");
+    if (message != null) { 
+%>
+    <div class="alert <%= messageType.equals("success") ? "alert-success" : "alert-danger" %>">
+        <%= message %>
+    </div>
+<% 
+    session.removeAttribute("message"); 
+    session.removeAttribute("messageType");
+} 
+%>
 <header>
     <h1>Case Details</h1>
 </header>
@@ -171,7 +203,7 @@ while (rsEvidence.next()) {
 
     %>
         <!-- Show Case Report & Mark as Completed button if the case is Accepted -->
-     <button class="btn btn-primary" onclick="window.open('<%= request.getContextPath() %>/downloadCaseReport?caseId=<%= caseId %>', '_blank')"> View Case Report</button>
+     <button class="btn btn-accept" onclick="window.open('<%= request.getContextPath() %>/downloadCaseReport?caseId=<%= caseId %>', '_blank')"> View Case Report</button>
         <button type="submit" name="status" value="Completed" class="btn btn-accept">Mark as Completed</button>
     <% } else if ("Rejected".equalsIgnoreCase(caseStatus)) { %>
         <!-- Show nothing if the case is Rejected -->

@@ -56,7 +56,7 @@
         <div class="details">
             <h3>Report Details:</h3>
             <p><strong>Fraud No or URL:</strong> ${no_orurl}</p>
-            <p><strong>Date of Incident:</strong> ${date}</p>
+            <p><strong>Date of Incident:</strong> ${incidentDate}</p>
             <p><strong>Description:</strong> ${description}</p>
         </div>
 

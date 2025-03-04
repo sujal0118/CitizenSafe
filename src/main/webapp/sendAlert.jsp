@@ -68,9 +68,10 @@
         <textarea name="alertMessage" placeholder="Enter alert details..." required></textarea>
         <button type="submit" class="btn" onclick="return confirmSend()">Send Alert</button>
     </form>
+    <a href="police.jsp" class="btn-primary">Back to Police Dashboard</a>
+    
 </div>
 
-<a href="police.jsp" class="btn-primary">Back to Police Dashboard</a>
 
 </body>
 </html>

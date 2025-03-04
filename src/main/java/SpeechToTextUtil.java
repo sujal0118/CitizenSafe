@@ -18,13 +18,15 @@ public class SpeechToTextUtil {
                 .setCredentialsProvider(() -> credentials)
                 .build();
 
-        try (SpeechClient speechClient = SpeechClient.create(speechSettings)) {  // ✅ Use custom settings with credentials
+        try (SpeechClient speechClient = SpeechClient.create(speechSettings)) {  
             byte[] audioBytes = Files.readAllBytes(Paths.get(filePath));
             ByteString audioData = ByteString.copyFrom(audioBytes);
 
             RecognitionConfig config = RecognitionConfig.newBuilder()
-                .setEncoding(AudioEncoding.WEBM_OPUS)  // ✅ Change to WEBM_OPUS for WebM format
+                .setEncoding(AudioEncoding.WEBM_OPUS)  
                 .setLanguageCode("en-US")
+//                .addAlternativeLanguageCodes("hi-IN")  
+//                .addAlternativeLanguageCodes("mr-IN")  
                 .build();
 
             RecognitionAudio audio = RecognitionAudio.newBuilder()
@@ -43,3 +45,4 @@ public class SpeechToTextUtil {
         }
     }
 }
+

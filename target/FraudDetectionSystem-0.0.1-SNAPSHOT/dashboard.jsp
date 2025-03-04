@@ -98,6 +98,8 @@
                 <th>Nearest Police Station</th>
                 <th>Status</th>
                 <th>Evidence</th>
+                <th>Case Report</th>
+                
 
             </tr>
 
@@ -108,25 +110,28 @@
                 String description;
                 String nearestPoliceStation; 
                 String status; 
+                String caseReport;
                 
                 ArrayList<String> evidenceList = new ArrayList<>();
 
-                public Complaint(int id, String incidentDate, String description , String nearestPoliceStation, String status) {
+                public Complaint(int id, String incidentDate, String description , String nearestPoliceStation, String status,String caseReport) {
                     this.id = id;
                     this.incidentDate = incidentDate;
                     this.description = description;
                     this.nearestPoliceStation = nearestPoliceStation;
                     this.status = status;
+                    this.caseReport = caseReport;
                 }
             }
 
             LinkedHashMap<Integer, Complaint> complaintsMap = new LinkedHashMap<>();
             try (Connection conn = Dbconnection.getConnection();
             	     PreparedStatement ps = conn.prepareStatement(
-            	         "SELECT c.idcomplaint, c.incident_date, c.description, c.nearest_police_station, c.status, e.evidence_id, e.name " +
-            	         "FROM complaints c " +
-            	         "LEFT JOIN evidence e ON c.idcomplaint = e.complaint_id " +
-            	         "WHERE c.iduser = ? ORDER BY c.idcomplaint")) {
+            	    		 "SELECT c.idcomplaint, c.incident_date, c.description, c.nearest_police_station, c.status, e.evidence_id, e.name, c.case_report_path " +
+            	    				 " FROM complaints c " +
+            	    				 " LEFT JOIN evidence e ON c.idcomplaint = e.complaint_id " +
+            	    				 " WHERE c.iduser = ? ORDER BY c.idcomplaint"
+)) {
 
 
                 ps.setInt(1, userId);
@@ -138,10 +143,11 @@
                     String description = rs.getString("description");
                     String policeStation = rs.getString("nearest_police_station");
                     String status = rs.getString("status");
+                    String caseReport = rs.getString("case_report_path");
 
 
                     // Get or create complaint object
-                   Complaint complaint = complaintsMap.getOrDefault(complaintId, new Complaint(complaintId, incidentDate, description, policeStation, status));
+                   Complaint complaint = complaintsMap.getOrDefault(complaintId, new Complaint(complaintId, incidentDate, description, policeStation, status,caseReport));
 
 
                     // Add evidence if available
@@ -162,6 +168,14 @@
                 <td><%= complaint.nearestPoliceStation %></td>
                 <td><%= complaint.status %></td>
                 <td><%= complaint.evidenceList.isEmpty() ? "No Evidence" : String.join(", ", complaint.evidenceList) %></td>
+       <td>
+        <% if ("Accepted".equalsIgnoreCase(complaint.status) || "Completed".equalsIgnoreCase(complaint.status)) { %>
+            <a class="btn" href="<%= request.getContextPath() %>/downloadCaseReport?caseId=<%= complaint.id %>" target="_blank">View Case Report</a>
+        <% } else { %>
+            Not Available
+        <% } %>
+    </td>
+      
             </tr>
             <% 
                 }

@@ -399,10 +399,10 @@ h3 {
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Date of Incident*</label>
-                    <input type="date" name="incidentDate" class="form-control" required>
-                </div>
+               <div class="form-group">
+    <label class="form-label">Date of Incident*</label>
+    <input type="date" name="incidentDate" class="form-control" id="incidentDate" required>
+</div>
 
                 <div class="form-group">
                     <label class="form-label">Description*</label>
@@ -518,6 +518,9 @@ h3 {
     </div>
 
     <script>
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById("incidentDate").setAttribute("max", today);
+    
     document.addEventListener('DOMContentLoaded', function() {
         // Global variables
         let mediaRecorder;

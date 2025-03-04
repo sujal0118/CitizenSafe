@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        System.out.println("✅ Login Attempt: " + email);
+    
 
         // Validate input
         if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
@@ -54,10 +54,10 @@ public class Login extends HttpServlet {
 
                 if (rs.next()) {
                     String storedHashedPassword = rs.getString("password");
-                    System.out.println("🔹 Retrieved Hashed Password: " + storedHashedPassword);
+                    
 
                     if (BCrypt.checkpw(password, storedHashedPassword)) {
-                        System.out.println("✅ Login Successful for: " + email);
+                      
                         
                         // Start a new session
                         HttpSession session = request.getSession();

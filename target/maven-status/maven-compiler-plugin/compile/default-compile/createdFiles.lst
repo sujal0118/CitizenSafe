@@ -3,11 +3,14 @@ UpdateCase$1.class
 PoliceLogin.class
 Register.class
 SendOtpServlet.class
+com\fraud\Fetcher\PhishTankFetcher.class
+com\fraud\test\UserModuleTesting.class
 Index.class
 RegisterPoliceServlet.class
 AdminLogoutServlet.class
 VerifyOtpServlet.class
 DownloadEvidenceServlet.class
+UserModuleTesting.class
 Register$1.class
 Login.class
 RegisterPoliceServlet$1.class
@@ -22,5 +25,7 @@ ResetPasswordServlet.class
 com\fraud\report\GenerateReportServlet.class
 UpdateCase.class
 AdminLogin.class
+ChatbotServlet.class
+com\fraud\Fetcher\GoogleSafeBrowsingCheck.class
 SpeechToTextUtil.class
 VisitorStatsServlet.class
