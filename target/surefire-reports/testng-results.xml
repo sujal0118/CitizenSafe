@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-03-05T01:51:23 IST" name="User Module Test Suite" finished-at="2025-03-05T01:51:33 IST" duration-ms="10087">
+  <suite started-at="2025-03-05T11:02:57 IST" name="User Module Test Suite" finished-at="2025-03-05T11:03:05 IST" duration-ms="7749">
     <groups>
     </groups>
-    <test started-at="2025-03-05T01:51:23 IST" name="User Module Tests" finished-at="2025-03-05T01:51:33 IST" duration-ms="10087">
+    <test started-at="2025-03-05T11:02:57 IST" name="User Module Tests" finished-at="2025-03-05T11:03:05 IST" duration-ms="7749">
       <class name="com.fraud.test.UserModuleTesting">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T01:51:23 IST" name="setup" finished-at="2025-03-05T01:51:27 IST" duration-ms="4008" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T11:02:57 IST" name="setup" finished-at="2025-03-05T11:02:59 IST" duration-ms="2330" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testUserLogin(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T01:51:27 IST" name="testUserLogin" data-provider="loginData" finished-at="2025-03-05T01:51:31 IST" duration-ms="4323" status="PASS">
+        <test-method signature="testUserLogin(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T11:03:00 IST" name="testUserLogin" data-provider="loginData" finished-at="2025-03-05T11:03:04 IST" duration-ms="4288" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -32,7 +32,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUserLogin -->
-        <test-method signature="testUserLogin(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T01:51:31 IST" name="testUserLogin" data-provider="loginData" finished-at="2025-03-05T01:51:32 IST" duration-ms="750" status="PASS">
+        <test-method signature="testUserLogin(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T11:03:04 IST" name="testUserLogin" data-provider="loginData" finished-at="2025-03-05T11:03:05 IST" duration-ms="748" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -54,7 +54,7 @@ OK]]>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUserLogin -->
-        <test-method is-config="true" signature="checkTestResult(org.testng.ITestResult)[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T01:51:31 IST" name="checkTestResult" finished-at="2025-03-05T01:51:31 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="checkTestResult(org.testng.ITestResult)[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T11:03:04 IST" name="checkTestResult" finished-at="2025-03-05T11:03:04 IST" duration-ms="0" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -65,11 +65,11 @@ OK]]>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkTestResult -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T01:51:32 IST" name="teardown" finished-at="2025-03-05T01:51:33 IST" duration-ms="950" status="PASS">
+        <test-method is-config="true" signature="teardown()[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T11:03:05 IST" name="teardown" finished-at="2025-03-05T11:03:05 IST" duration-ms="313" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->
-        <test-method is-config="true" signature="checkTestResult(org.testng.ITestResult)[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T01:51:32 IST" name="checkTestResult" finished-at="2025-03-05T01:51:32 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="checkTestResult(org.testng.ITestResult)[pri:0, instance:com.fraud.test.UserModuleTesting@1bb266b3]" started-at="2025-03-05T11:03:05 IST" name="checkTestResult" finished-at="2025-03-05T11:03:05 IST" duration-ms="0" status="PASS">
           <params>
             <param index="0">
               <value>

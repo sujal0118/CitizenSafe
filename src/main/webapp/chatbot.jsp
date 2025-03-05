@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
     <style>
-        /* Chatbot Styles */
+        /* Chatbot UI */
         #chat-window {
             width: 100%;
             height: 100%;
@@ -63,7 +63,6 @@
 </head>
 <body>
 
-<!-- Chatbot UI (Always Visible in Popup) -->
 <div id="chat-window">
     <div id="chat-header">Fraud Guidance Chatbot</div>
     <div id="chat-messages"></div>
@@ -74,32 +73,59 @@
 </div>
 
 <script>
-function sendMessage() {
-    let inputField = document.getElementById("chat-input");
-    let userMessage = inputField.value.trim();
-    if (userMessage === "") return;
+    let selectedChatType = "faq"; // ✅ Default to FAQ mode
 
-    // Display user message
-    let chatMessages = document.getElementById("chat-messages");
-    chatMessages.innerHTML += "<div class='user-message'>" + userMessage + "</div>";
+    function sendMessage() {
+        let inputField = document.getElementById("chat-input");
+        let userMessage = inputField.value.trim();
+        if (userMessage === "") return;
 
-    // Determine chatbot type
-    let chatbotType = (userMessage.toLowerCase().includes("fraud") || userMessage.toLowerCase().includes("scam")) ? "ai" : "faq";
+        let chatMessages = document.getElementById("chat-messages");
+        chatMessages.innerHTML += "<div class='user-message'>" + userMessage + "</div>";
 
-    // Send message to servlet
-    fetch("ChatbotServlet", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: "message=" + encodeURIComponent(userMessage) + "&type=" + chatbotType
-    })
-    .then(response => response.text())
-    .then(reply => {
-        chatMessages.innerHTML += "<div class='bot-message'>" + reply + "</div>";
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    });
+        if (userMessage.toLowerCase() === "hello") {
+            // Show FAQ and AI options
+            chatMessages.innerHTML += `
+                <div class='bot-message'>
+                    Choose an option:<br>
+                    <button onclick="selectOption('faq')">FAQ</button>
+                    <button onclick="selectOption('ai')">AI Chat</button>
+                </div>
+            `;
+        } else {
+            // ✅ Fetch from servlet using correct context path
+            let servletUrl = "<%= request.getContextPath() %>/ChatbotServlet";
+            console.log("Sending request to:", servletUrl); // ✅ Debugging Log
 
-    inputField.value = "";
-}
+            fetch(servletUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "message=" + encodeURIComponent(userMessage) + "&type=" + selectedChatType
+            })
+            .then(response => {
+                console.log("Response status:", response.status); // ✅ Debugging Log
+                if (!response.ok) throw new Error("HTTP error! Status: " + response.status);
+                return response.text();
+            })
+            .then(reply => {
+                console.log("Server reply:", reply); // ✅ Debugging Log
+                chatMessages.innerHTML += "<div class='bot-message'>" + reply + "</div>";
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                chatMessages.innerHTML += "<div class='bot-message'>Error connecting to chatbot.</div>";
+            });
+        }
+
+        inputField.value = "";
+    }
+
+    function selectOption(type) {
+        selectedChatType = type;
+        let chatMessages = document.getElementById("chat-messages");
+        chatMessages.innerHTML += "<div class='bot-message'>You selected: " + type.toUpperCase() + "</div>";
+    }
 </script>
 
 </body>

@@ -1,31 +1,34 @@
+import java.io.*;
+import java.net.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-
-import org.json.JSONArray;  // ✅ Correct import
+import org.json.JSONArray;
 import org.json.JSONObject;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URI;
-import java.io.OutputStream;
-import java.util.Scanner;
+import java.util.HashMap;
 
 @WebServlet("/ChatbotServlet")
 public class ChatbotServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final HashMap<String, String> faqResponses = new HashMap<>();
+    private static final String GEMINI_API_KEY = System.getenv("GEMINI_API_KEY");
 
     public void init() {
         // Define FAQ responses
-        faqResponses.put("hello", "Hello! How can I assist you?");
         faqResponses.put("how to report fraud", "You can report fraud using our 'Report Fraud' section.");
-        faqResponses.put("how to file a complaint", "To file a complaint, go to the 'File Complaint' section and provide necessary details.");
-        faqResponses.put("contact police", "If you need to contact the police, visit your nearest station or call emergency numbers.");
+        faqResponses.put("how to file a complaint", "To file a complaint, go to the 'File Complaint' section.");
+        faqResponses.put("contact police", "If you need to contact the police, visit your nearest station.");
+        faqResponses.put("fraud types", "Common fraud types include phishing, identity theft, and investment scams.");
+        faqResponses.put("how to check complaint status", "You can check your complaint status from the 'Dashboard' section.");
+        faqResponses.put("how long does complaint processing take", "The processing time varies, but most complaints are reviewed within 7 days.");
+        faqResponses.put("can i update my complaint", "No, once submitted, a complaint cannot be modified. However, you can add more evidence.");
+        faqResponses.put("how to add more evidence", "You can upload additional evidence files in the 'Dashboard' under your complaint.");
+        faqResponses.put("will i get updates on my complaint", "Yes, you will receive email notifications regarding the status of your complaint.");
+        faqResponses.put("who reviews complaints", "Complaints are reviewed by authorized police officers registered on our system.");
+        faqResponses.put("how do i identify a fraudulent website", "Check for HTTPS security, avoid entering sensitive information, and verify official sources.");
+        faqResponses.put("how do i avoid phishing scams", "Avoid clicking on unknown links, verify email senders, and never share personal details online.");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,45 +39,48 @@ public class ChatbotServlet extends HttpServlet {
         String chatbotType = request.getParameter("type");
 
         if ("faq".equals(chatbotType)) {
-            // Rule-based FAQ chatbot
             String botResponse = faqResponses.getOrDefault(userMessage, "I don't understand. Please ask something else.");
             out.print(botResponse);
         } else if ("ai".equals(chatbotType)) {
-            // AI-Based Chatbot using Google Gemini API
-            String aiResponse = getAIResponse(userMessage);
+            String aiResponse = getGeminiAIResponse(userMessage);
             out.print(aiResponse);
         }
-        
+
         out.flush();
     }
 
-    private String getAIResponse(String userMessage) {
-        try {
-            String apiKey = System.getenv("GEMINI_API_KEY");
-            System.out.println("GEMINI_API_KEY: " + System.getenv("GEMINI_API_KEY"));
-// Use environment variable for security
-            if (apiKey == null || apiKey.isEmpty()) {
-                return "API key is missing. Please set it in your environment variables.";
-            }
+    private String getGeminiAIResponse(String userMessage) {
+        if (GEMINI_API_KEY == null || GEMINI_API_KEY.isEmpty()) {
+            return "Error: Gemini API key is missing. Please set the environment variable.";
+        }
 
-            URI uri = new URI("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey);
+        try {
+            // ✅ Correct API URL
+        	URI uri = new URI("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=" + GEMINI_API_KEY);
+
             URL url = uri.toURL();
+
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
 
+            // ✅ Correct JSON structure
             JSONObject requestBody = new JSONObject();
-            JSONArray messageArray = new JSONArray();
-            JSONObject userMessageObj = new JSONObject();
-            userMessageObj.put("text", userMessage);
-            
-            JSONObject userRoleObj = new JSONObject();
-            userRoleObj.put("role", "user");
-            userRoleObj.put("parts", new JSONArray().put(userMessageObj));
-            messageArray.put(userRoleObj);
+            JSONArray contents = new JSONArray();
 
-            requestBody.put("contents", messageArray);
+            JSONObject textPart = new JSONObject();
+            textPart.put("text", userMessage);
+
+            JSONArray parts = new JSONArray();
+            parts.put(textPart);
+
+            JSONObject content = new JSONObject();
+            content.put("role", "user");  // ✅ Added role field
+            content.put("parts", parts);
+
+            contents.put(content);
+            requestBody.put("contents", contents);
 
             // Send request
             try (OutputStream os = conn.getOutputStream()) {
@@ -83,32 +89,41 @@ public class ChatbotServlet extends HttpServlet {
             }
 
             int responseCode = conn.getResponseCode();
+            String responseMessage = conn.getResponseMessage();
+
+            // ✅ Debugging logs
+            System.out.println("Response Code: " + responseCode);
+            System.out.println("Response Message: " + responseMessage);
+
             if (responseCode != 200) {
-                return "Error: API request failed with response code " + responseCode;
+                return "Error: Gemini AI response failed (Code " + responseCode + ")";
             }
 
-            // Read response
-            Scanner scanner = new Scanner(conn.getInputStream());
+            // ✅ Using BufferedReader for efficient reading
             StringBuilder responseText = new StringBuilder();
-            while (scanner.hasNext()) {
-                responseText.append(scanner.nextLine());
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    responseText.append(line);
+                }
             }
-            scanner.close();
+
+            // ✅ Debugging API response
+            System.out.println("Full API Response: " + responseText.toString());
 
             JSONObject jsonResponse = new JSONObject(responseText.toString());
+
+            // ✅ Correct response parsing
             return jsonResponse.getJSONArray("candidates")
-                               .getJSONObject(0)
-                               .getJSONArray("content")
-                               .getJSONObject(0)
-                               .getJSONArray("parts")
-                               .getJSONObject(0)
-                               .getString("text");
+                .getJSONObject(0)
+                .getJSONObject("content")
+                .getJSONArray("parts")
+                .getJSONObject(0)
+                .getString("text");
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "Sorry, I couldn't process your request at the moment.";
+            return "Error: Failed to connect to Gemini AI.";
         }
     }
-
-    }
-
+}
